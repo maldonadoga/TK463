@@ -1,0 +1,26 @@
+/*
+if exists (
+	select * from master.sys.databases
+	where name = 'TK463DW')
+	drop database TK463DW
+else
+	create database TK463DW
+go
+*/
+
+USE master;
+IF DB_ID('TK463DW') IS NOT NULL
+DROP DATABASE TK463DW;
+GO
+CREATE DATABASE TK463DW
+ON PRIMARY
+(NAME = N'TK463DW',
+	FILENAME = N'c:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\TK463DW.mdf',
+	SIZE = 307200KB , FILEGROWTH = 10240KB )
+LOG ON
+	(NAME = N'TK463DW_log', 
+	FILENAME = 'c:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\TK463DW_log.ldf',
+	SIZE = 51200KB , FILEGROWTH = 10%);
+GO
+ALTER DATABASE TK463DW SET RECOVERY SIMPLE WITH NO_WAIT;
+GO
